@@ -7,7 +7,7 @@ namespace Program
 	{
 		public static void Main(string[] args)
 		{
-			Console.WriteLine(LongestCommonPrefix.GetLongestCommonPrefix(["ABABCS", "ABAEAL", "ABBCE", "ABBEF"]));
+			Console.WriteLine();
 		}
 	}
 }
