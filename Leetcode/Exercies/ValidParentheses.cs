@@ -1,4 +1,6 @@
-﻿namespace Leetcode.Exercies
+﻿using System.Runtime.CompilerServices;
+
+namespace Leetcode.Exercies
 {
     static class ValidParentheses
     {
@@ -28,19 +30,14 @@
             }
         }
 
-        static private bool IsOpenBracket(char c)
+        private static bool isOpenBracket(char c)
         {
-            return (c.Equals(LEFT_PARENTHESIS) || c.Equals(LEFT_BRACE) || c.Equals(LEFT_SQUAREBRACKET)) ? true : false;
-        }
-
-        static private bool IsCloseBracket(char c)
-        {
-            return (c.Equals(RIGHT_PARENTHESIS) || c.Equals(RIGHT_BRACE) || c.Equals(RIGHT_SQUAREBRACKET)) ? true : false;
+            return (c.Equals(LEFT_BRACE) || c.Equals(LEFT_PARENTHESIS) || c.Equals(LEFT_SQUAREBRACKET)) ? true : false;
         }
 
         static public bool IsValid(string s)
         {
-            bool isValid = false;
+            s = s.Trim();
 
             if (s.Trim().Length % 2 != 0) 
                 return false;
@@ -50,20 +47,59 @@
                     return false;
                 else
                 {
-                    for (int i = 0; i < s.Length; i += 2)
+                    for (int i = 0; i < s.Length; )
                     {
-                        for (int j = i + 1; j < s.Length; j += 2)
+                        if (i != s.Length - 1)
                         {
-                            if (s[j].Equals(GetOtherChar(s[i])) 
-                                && (IsOpenBracket(s[i]))
-                                && (IsCloseBracket(s[j])))
-                                isValid = true;
+                            if (s[i + 1] == GetOtherChar(s[i])
+                                && isOpenBracket(s[i]))
+                            {
+                                s = s.Remove(i, 2);
+                                i = 0;
+                            }
+                            else
+                            {
+                                if (s.Length == 2)
+                                    return false;
+
+                                i++;
+                            }
+                        }
+                        else
+                        {
+                            return false;
                         }
                     }
                 }
             }
 
-            return isValid;
+            return (s.Length != 0) ? false : true;
+        }
+
+        static public bool AnotherWay(string s)
+        {
+            Stack<char> charsSeen = new Stack<char>();
+
+            for (int i = 0; i < s.Length; i++)
+            {
+                if (s[i] == '(' || s[i] == '{' || s[i] == '[')
+                {
+                    charsSeen.Push(s[i]);
+                }
+                else
+                {
+                    if (charsSeen.Count == 0 ||
+                        (s[i] == ')' && charsSeen.Peek() != '(') ||
+                        (s[i] == ']' && charsSeen.Peek() != '[') ||
+                        (s[i] == '}' && charsSeen.Peek() != '{'))
+                    {
+                        return false;
+                    }
+                    charsSeen.Pop();
+                }
+            }
+
+            return charsSeen.Count == 0;
         }
     }
 }

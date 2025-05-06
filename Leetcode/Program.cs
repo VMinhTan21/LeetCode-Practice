@@ -7,7 +7,7 @@ namespace Program
 	{
 		public static void Main(string[] args)
 		{
-			Console.WriteLine(ValidParentheses.IsValid("({}[]]"));
+			Console.WriteLine(ValidParentheses.AnotherWay("([)]"));
 		}
 	}
 }
