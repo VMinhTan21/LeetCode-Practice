@@ -1,7 +1,12 @@
-﻿namespace Leetcode.Exercies
-{
-    static class MergeTwoSortedList
-    {
+﻿using System;
 
+namespace Leetcode.Exercies
+{
+    public class MergeTwoSortedList
+    {
+        MergeTwoSortedList()
+        {
+
+        }
     }
 }
